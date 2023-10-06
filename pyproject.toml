@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tinymagic"
+dynamic = ["version"]
+maintainers = [{name = "TKRA"}]
+authors = [{name="TKRA"}]
+description = "Helper functions to make life easier"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["cvision utils", "helper functions", "llm utils"]
+
+[project.urls]
+homepage = "https://github.com/tkra90/magic"
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+
+[tool.flake8]
+max_line_length = 88
+exclude = [".git", "__pycache__", "build", "dist", ".eggs", ".asv", ".tox", ".ipynb_checkpoints"]
+
+[tool.setuptools.packages.find]
+exclude = ["examples", "tests",  "docs", "feedstock"]
