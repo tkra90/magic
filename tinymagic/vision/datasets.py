@@ -1,3 +1,4 @@
+import re
 from glob import glob
 from PIL import Image
 from torch.utils.data import Dataset
@@ -32,3 +33,36 @@ class SegmetationDataset(Dataset):
             mask = self.transform(mask)
 
         return image, mask
+
+
+class SummarizationDataset(Dataset):
+    def __init__(self, data, tokenizer, max_input_length=1024, max_output_length=128):
+        self.data = data
+        self.tokenizer = tokenizer
+        self.max_input_length = max_input_length
+        self.max_output_length = max_output_length
+
+    def __len__(self):
+        return len(self.data)
+
+    @staticmethod
+    def generate_train_prompt(article: str, summary: str, prompt: str) -> str:
+        txt = f"# Instruction: {prompt}\n"
+        txt += f"# Input: {article}\n"
+        txt += f"# Response: {summary}\n"
+        return txt
+
+    @staticmethod
+    def text_cleaning(x):
+        text = re.sub(r" .\n", ". ", x)
+        text = re.sub(r"http\S+", "", text)
+        text = re.sub(r"\^[^ ]+", "", text)
+        text = re.sub(r"@[^\s]+", "", text)
+        return text
+
+    def __getitem__(self, index):
+        article = self.text_cleaning(self.data.iloc[index]["article"])
+        summary = self.text_cleaning(self.data.iloc[index]["highlights"])
+        txt = self.generate_train_prompt(article, summary)
+        txt = self.tokenizer(txt, truncation=True, max_length=self.max_input_length, padding="max_length")
+        return {"article": article, "summary": summary, "text": txt}
