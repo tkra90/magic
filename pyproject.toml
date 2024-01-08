@@ -11,6 +11,7 @@ description = "Helper functions to make life easier"
 readme = "README.md"
 requires-python = ">=3.7"
 keywords = ["cvision utils", "helper functions", "llm utils"]
+license = {text = "MIT License"}
 
 [project.urls]
 homepage = "https://github.com/tkra90/magic"
@@ -24,4 +25,9 @@ max_line_length = 88
 exclude = [".git", "__pycache__", "build", "dist", ".eggs", ".asv", ".tox", ".ipynb_checkpoints"]
 
 [tool.setuptools.packages.find]
+where = ["."]
+include = ["tinymagic*"]
 exclude = ["examples", "tests",  "docs", "feedstock"]
+
+[tool.setuptools.dynamic]
+version = {attr = "tinymagic.__version__"}

@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 
-# setup()
 setup(
     name="tinymagic",
     version="0.0.1",
