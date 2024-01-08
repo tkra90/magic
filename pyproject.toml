@@ -11,6 +11,7 @@ description = "Helper functions to make life easier"
 readme = "README.md"
 requires-python = ">=3.7"
 keywords = ["cvision utils", "helper functions", "llm utils"]
+license = {text = "MIT License"}
 
 [project.urls]
 homepage = "https://github.com/tkra90/magic"
