@@ -13,5 +13,6 @@ setup(
         "opencv-python>=4.8.0",
         "torch>=1.13.1",
         "torchvision>=0.14.1",
+        "chromadb==0.4.22",
     ],
 )
